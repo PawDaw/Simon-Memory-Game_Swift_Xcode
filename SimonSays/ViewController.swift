@@ -274,7 +274,7 @@ class ViewController: UIViewController {
     
     func playerLoses () {
         
-        displayAlertWithTitle("You lost", message: "HI HI you lost", buttonTitle: "Try again", action: {_ in self.startNewGame()}  )
+        displayAlertWithTitle("You lost", message: "You lost", buttonTitle: "Try again", action: {_ in self.startNewGame()}  )
     }
     
     
