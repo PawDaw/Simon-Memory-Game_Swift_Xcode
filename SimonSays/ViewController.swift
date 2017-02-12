@@ -12,15 +12,15 @@ import AVFoundation
 class ViewController: UIViewController {
     
     enum ButtonColor: Int{
-        case Red = 1
-        case Green = 2
-        case Blue = 3
-        case Yellow = 4
+        case red = 1
+        case green = 2
+        case blue = 3
+        case yellow = 4
     }
     
     enum WhoseTurn {
-        case Human
-        case Computer
+        case human
+        case computer
     }
     
     let soundName = "tick"
@@ -33,13 +33,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var yellowButton: UIButton!
     
-    @IBAction func Start(sender: AnyObject) {
+    @IBAction func Start(_ sender: AnyObject) {
         
         startNewGame()
         
     }
     
-    @IBAction func StartButton(sender: AnyObject) {
+    @IBAction func StartButton(_ sender: AnyObject) {
         
         startGame()
     }
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     // MARK: model Properties
     
     let winningNumber = 10
-    var currentPlayer: WhoseTurn = .Computer
+    var currentPlayer: WhoseTurn = .computer
     
     //Array of buttons
     var inputs = [ButtonColor]()
@@ -71,17 +71,17 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func buttonTouched(sender: UIButton) {
+    @IBAction func buttonTouched(_ sender: UIButton) {
         
         
         //play sound
-        let soundPath = NSBundle.mainBundle().pathForResource(soundName, ofType: "wav")
+        let soundPath = Bundle.main.path(forResource: soundName, ofType: "wav")
         
         if let soundPath_2 = soundPath{
-            let soundURL = NSURL.fileURLWithPath(soundPath_2)
+            let soundURL = URL(fileURLWithPath: soundPath_2)
             
             do {
-                try soundPlayer = AVAudioPlayer(contentsOfURL: soundURL)
+                try soundPlayer = AVAudioPlayer(contentsOf: soundURL)
                 soundPlayer.prepareToPlay()
                 soundPlayer.play()
             } catch {
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         if let colorTouched = ButtonColor(rawValue: buttonTag) {
 
         
-            if currentPlayer == .Computer{
+            if currentPlayer == .computer{
                 // ignore touches as long as this flag is set to true
             }
             
@@ -105,15 +105,15 @@ class ViewController: UIViewController {
             if colorTouched  == inputs[indexOfNextButtonToTouch]{
                 
                 // the player touched the current button
-                indexOfNextButtonToTouch++
+                indexOfNextButtonToTouch += 1
                 
                 let button = buttonByColor(colorTouched)
                 let originalColor = buttonByColor(colorTouched).backgroundColor
-                UIView.animateWithDuration(
-                    0.2,
+                UIView.animate(
+                    withDuration: 0.2,
                     delay: 0.0,
-                    options: UIViewAnimationOptions.CurveEaseOut,
-                    animations: {self.buttonByColor(colorTouched).backgroundColor = UIColor.whiteColor()
+                    options: UIViewAnimationOptions.curveEaseOut,
+                    animations: {self.buttonByColor(colorTouched).backgroundColor = UIColor.white
                     self.view.layoutIfNeeded()},
                     completion:
                     {
@@ -186,16 +186,16 @@ class ViewController: UIViewController {
     }
     
     
-    func playSequence (index: Int, highlightTime: Double){
+    func playSequence (_ index: Int, highlightTime: Double){
       
-        currentPlayer = .Computer
+        currentPlayer = .computer
         
          self.labelText.text = "Computer"
       // self.view.backgroundColor = UIColor.blackColor();
         
         if index == inputs.count {
             
-            currentPlayer = .Human
+            currentPlayer = .human
             
             self.labelText.text = "Your move"
            // self.view.backgroundColor = UIColor.whiteColor();
@@ -207,12 +207,12 @@ class ViewController: UIViewController {
         
         let button = buttonByColor(inputs[index])
         let originalColor = button.backgroundColor
-        let highlightColor = UIColor.whiteColor()
+        let highlightColor = UIColor.white
         
-        UIView.animateWithDuration(
-            highlightTime,
+        UIView.animate(
+            withDuration: highlightTime,
             delay: 0.5,
-            options: UIViewAnimationOptions.CurveEaseInOut,
+            options: UIViewAnimationOptions(),
             animations: {button.backgroundColor = highlightColor},
             completion:
             {finished in button.backgroundColor = originalColor
@@ -220,13 +220,13 @@ class ViewController: UIViewController {
             self .playSequence(newIndex, highlightTime: highlightTime)})
         
         //play sound
-        let soundPath = NSBundle.mainBundle().pathForResource(soundName, ofType: "wav")
+        let soundPath = Bundle.main.path(forResource: soundName, ofType: "wav")
         
         if let soundPath_2 = soundPath{
-            let soundURL = NSURL.fileURLWithPath(soundPath_2)
+            let soundURL = URL(fileURLWithPath: soundPath_2)
             
             do {
-                try soundPlayer = AVAudioPlayer(contentsOfURL: soundURL)
+                try soundPlayer = AVAudioPlayer(contentsOf: soundURL)
                 soundPlayer.prepareToPlay()
                 soundPlayer.play()
             } catch {
@@ -238,15 +238,15 @@ class ViewController: UIViewController {
         
     }
     
-    func buttonByColor (color: ButtonColor) -> UIButton {
+    func buttonByColor (_ color: ButtonColor) -> UIButton {
         switch color {
-            case .Red:
+            case .red:
                return redButton
-            case .Green:
+            case .green:
                return greenButton
-            case .Blue:
+            case .blue:
                return blueButton
-            case .Yellow:
+            case .yellow:
                return yellowButton
             
             
@@ -254,15 +254,15 @@ class ViewController: UIViewController {
     }
     
     
-    func displayAlertWithTitle(title: String, message: String, buttonTitle: String, action: (UIAlertAction) -> ()) {
+    func displayAlertWithTitle(_ title: String, message: String, buttonTitle: String, action: @escaping (UIAlertAction) -> ()) {
         
-        let alertView = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        let action = UIAlertAction(title: title, style: UIAlertActionStyle.Default , handler: action)
+        let action = UIAlertAction(title: title, style: UIAlertActionStyle.default , handler: action)
         
         alertView.addAction(action)
         
-        self.presentViewController(alertView, animated: true, completion: nil)
+        self.present(alertView, animated: true, completion: nil)
         
     }
     
