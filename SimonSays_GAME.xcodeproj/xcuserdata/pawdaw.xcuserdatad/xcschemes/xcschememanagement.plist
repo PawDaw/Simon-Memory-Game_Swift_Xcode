@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SimonSays.xcscheme</key>
+		<key>SimonSays_GAME.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>FAAED5C21C96C931002FD01F</key>
+		<key>FA9C25931E50F08100DE3F83</key>
 		<dict>
 			<key>primary</key>
 			<true/>
